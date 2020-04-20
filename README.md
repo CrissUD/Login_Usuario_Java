@@ -13,3 +13,5 @@ En el ejemplo se presenta:
 ## Demostracion
 
 ![](video_demostracion.gif)
+
+El Login anterior es una reconstrucción inspirada del proyecto web que puede ver en este [link de repositorio](https://github.com/akashyap2013/Advanced-Login-UI)
