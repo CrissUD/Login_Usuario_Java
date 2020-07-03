@@ -63,23 +63,23 @@ public class LoginTemplate extends JFrame{
     }
 
     public void crearObjetosDecoradores(){
-        iFondo = new ImageIcon("LoginUsuario/resources/images/fondo.png");
-        iLogo = new ImageIcon("LoginUsuario/resources/images/logo.png");
-        iUsuario1 = new ImageIcon("LoginUsuario/resources/images/usuario1.png");
-        iUsuario2 = new ImageIcon("LoginUsuario/resources/images/usuario2.png");
-        iClave1 = new ImageIcon("LoginUsuario/resources/images/clave1.png");
-        iClave2 = new ImageIcon("LoginUsuario/resources/images/clave2.png");
-        iPunto1 = new ImageIcon("LoginUsuario/resources/images/punto1.png");
-        iPunto2 = new ImageIcon("LoginUsuario/resources/images/punto2.png");
-        iFacebook1 = new ImageIcon("LoginUsuario/resources/images/facebook1.png");
-        iFacebook2 = new ImageIcon("LoginUsuario/resources/images/facebook2.png");
-        iTwitter1 = new ImageIcon("LoginUsuario/resources/images/twitter1.png");
-        iTwitter2 = new ImageIcon("LoginUsuario/resources/images/twitter2.png");
-        iYoutube1 = new ImageIcon("LoginUsuario/resources/images/youtube1.png");
-        iYoutube2 = new ImageIcon("LoginUsuario/resources/images/youtube2.png");
-        iSvg1 = new ImageIcon("LoginUsuario/resources/images/imagen1.png");
-        iSvg2 = new ImageIcon("LoginUsuario/resources/images/imagen2.png");
-        iSvg3 = new ImageIcon("LoginUsuario/resources/images/imagen3.png");
+        iFondo = new ImageIcon("resources/images/fondo.png");
+        iLogo = new ImageIcon("resources/images/logo.png");
+        iUsuario1 = new ImageIcon("resources/images/usuario1.png");
+        iUsuario2 = new ImageIcon("resources/images/usuario2.png");
+        iClave1 = new ImageIcon("resources/images/clave1.png");
+        iClave2 = new ImageIcon("resources/images/clave2.png");
+        iPunto1 = new ImageIcon("resources/images/punto1.png");
+        iPunto2 = new ImageIcon("resources/images/punto2.png");
+        iFacebook1 = new ImageIcon("resources/images/facebook1.png");
+        iFacebook2 = new ImageIcon("resources/images/facebook2.png");
+        iTwitter1 = new ImageIcon("resources/images/twitter1.png");
+        iTwitter2 = new ImageIcon("resources/images/twitter2.png");
+        iYoutube1 = new ImageIcon("resources/images/youtube1.png");
+        iYoutube2 = new ImageIcon("resources/images/youtube2.png");
+        iSvg1 = new ImageIcon("resources/images/imagen1.png");
+        iSvg2 = new ImageIcon("resources/images/imagen2.png");
+        iSvg3 = new ImageIcon("resources/images/imagen3.png");
     }
 
     public void crearJPanels(){

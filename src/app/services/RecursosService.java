@@ -36,7 +36,7 @@ public class RecursosService {
         bRedondeado= sGraficosAvanzados.DibujarBordeRedondeado(null, 40, 2);
         bRedondeadoLinealGris= sGraficosAvanzados.DibujarBordeRedondeado(colorGrisOscuro, 40, 0);
         bRedondeadoLinealAzul= sGraficosAvanzados.DibujarBordeRedondeado(colorAzul, 40, 0);
-        iCerrar = new ImageIcon("LoginUsuario/resources/images/cerrar.png");
+        iCerrar = new ImageIcon("resources/images/cerrar.png");
     }
     
     public Color getColorMorado(){
