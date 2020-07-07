@@ -33,9 +33,9 @@ public class RecursosService {
         fontSubtitulo = new Font("Forte", Font.PLAIN, 13);
         fontBotones = new Font("LuzSans-Book", Font.PLAIN, 15);
         cMano = new Cursor(Cursor.HAND_CURSOR);
-        bRedondeado= sGraficosAvanzados.DibujarBordeRedondeado(null, 40, 2);
-        bRedondeadoLinealGris= sGraficosAvanzados.DibujarBordeRedondeado(colorGrisOscuro, 40, 0);
-        bRedondeadoLinealAzul= sGraficosAvanzados.DibujarBordeRedondeado(colorAzul, 40, 0);
+        bRedondeado= sGraficosAvanzados.DibujarBordeRedondeado(null, 40, false, null);
+        bRedondeadoLinealGris= sGraficosAvanzados.DibujarBordeRedondeado(colorGrisOscuro, 40, true, null);
+        bRedondeadoLinealAzul= sGraficosAvanzados.DibujarBordeRedondeado(colorAzul, 40, true, null);
         iCerrar = new ImageIcon("resources/images/cerrar.png");
     }
     
