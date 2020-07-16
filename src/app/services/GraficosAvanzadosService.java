@@ -43,7 +43,7 @@ public class GraficosAvanzadosService {
             public Component getTableCellRendererComponent(
                 JTable table, Object value, boolean isSelected, boolean hasFocus, int row,int column
             ){
-                JLabel cell = (JLabel)super.getTableCellRendererComponent (table, value, isSelected, hasFocus, row, column);
+                JLabel cell = (JLabel) super.getTableCellRendererComponent (table, value, isSelected, hasFocus, row, column);
                 cell.getClass(); 
                 this.setOpaque(true);
                 this.setFont(fuente);
@@ -99,8 +99,7 @@ public class GraficosAvanzadosService {
             @Override
             protected void paintThumb(Graphics g, JComponent c, Rectangle r) {
                 Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 JScrollBar sb = (JScrollBar) c;
                 if (!sb.isEnabled() || r.width > r.height) {
                     return;
@@ -128,9 +127,9 @@ public class GraficosAvanzadosService {
     public Border devolverBordeDifuminado(Color colorBase){
         Border bordeFinal = null;
         Color siguienteColor = new Color(colorBase.getRed()+4, colorBase.getGreen()+4, colorBase.getBlue()+4);
-        int contador=0;
+        int contador = 0;
         while(siguienteColor.getRed() < 255){
-            if(contador==0){ 
+            if(contador == 0){ 
                 Border borde1=  BorderFactory.createLineBorder(colorBase,1,true);  
                 Border borde2=  BorderFactory.createLineBorder(siguienteColor,1,true);
                 bordeFinal = BorderFactory.createCompoundBorder(borde2,borde1);
@@ -146,7 +145,8 @@ public class GraficosAvanzadosService {
     }
     
     public Border DibujarBordeRedondeado (Color color, int radio, boolean esLineal, Image imagen) {
-        Border b = new Border() {
+        Border bordeRedondeado = new Border() {
+
             @Override
             public void paintBorder(Component c, Graphics g, int x, int y, int ancho, int alto) {
                 Graphics2D g2= (Graphics2D) g;
@@ -154,7 +154,7 @@ public class GraficosAvanzadosService {
                 g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
                 Area area = new Area();
                 Component padreContenedor  = c.getParent();
-                if (padreContenedor!=null) {
+                if (padreContenedor != null) {
                     if(esLineal){
                         this.diburjarFondo(c, padreContenedor, g2, ancho, alto);
                         this.dibujarBorde(g2, x, y, ancho, alto);
@@ -209,10 +209,10 @@ public class GraficosAvanzadosService {
                 return true;
             }
         } ;
-        return b;
+        return bordeRedondeado;
     }
     
-    public AbstractBorder DibujarBordeCircular() {
+    public AbstractBorder DibujarBordeCircular(Color color, boolean esLineal, Image imagen) {
         AbstractBorder bordeCircular = new AbstractBorder() {
         
             private static final long serialVersionUID = 2009875951859777681L;
@@ -222,24 +222,54 @@ public class GraficosAvanzadosService {
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
+                Area area = new Area();
+                Component padreContenedor  = c.getParent();
+                if (padreContenedor != null) {
+                    if(esLineal){
+                        this.diburjarFondo(c, padreContenedor, g2, ancho, alto);
+                        this.dibujarBorde(g2, x, y, ancho, alto);
+                    }
+                    else{
+                        area = this.dibujarBorde(g2, x, y, ancho, alto);
+                        this.diburjarFondo(c, padreContenedor, g2, ancho, alto);
+                        g2.setClip(null);
+                        g2.draw(area);
+                    }
+                }
+            }
+
+            public void diburjarFondo(Component c, Component padreContenedor, Graphics2D g2, int ancho, int alto){
+                if(imagen != null)
+                    g2.drawImage(
+                        imagen, 
+                        0, 0, imagen.getWidth(null), imagen.getHeight(null),
+                        c.getX(), c.getY(), imagen.getWidth(null) + c.getX(), imagen.getHeight(null) + c.getY(),
+                        c
+                    );
+                else{
+                    Color colorFondo = padreContenedor.getBackground();
+                    g2.setColor(colorFondo);
+                    g2.fillRect(0, 0, ancho, alto);
+                }
+            }
+
+            public Area dibujarBorde(Graphics2D g2, int x, int y, int ancho, int alto){
+                g2.setPaint(color);
                 Ellipse2D circulo = new Ellipse2D.Double();
                 circulo.setFrameFromCenter( 
                     new Point(x + ancho / 2, y + alto / 2),
                     new Point(ancho, alto)
                 );
                 Area area = new Area(circulo);
-                Component padreContenedor  = c.getParent();
-                if (padreContenedor != null) {
-                    Rectangle rectangulo = new Rectangle(0,0,ancho, alto);
-                    Area regionBorde = new Area(rectangulo);
-                    regionBorde.subtract(area);
-                    g2.setClip(regionBorde);
-                    Color colorFondo = padreContenedor.getBackground();
-                    g2.setColor(colorFondo);
-                    g2.fillRect(0, 0, ancho, alto);
+
+                Rectangle rectangulo = new Rectangle(0,0,ancho, alto);
+                Area RegionBorde = new Area(rectangulo);
+                RegionBorde.subtract(area);
+                g2.setClip(RegionBorde);
+                if(esLineal)
                     g2.setClip(null);
-                }
-                g2.draw(area);
+                    g2.draw(area);
+                return area;
             }
         };
         return bordeCircular;

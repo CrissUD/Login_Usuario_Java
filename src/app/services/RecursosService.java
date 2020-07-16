@@ -27,7 +27,7 @@ public class RecursosService {
         colorAzul = new Color(60, 78, 120);
         colorAzulOscuro = new Color(30, 48, 90);
         colorGrisOscuro = new Color(110, 110, 110);
-        colorGrisClaro = new Color(249, 249, 249);
+        colorGrisClaro = new Color(245, 245, 245);
         fontTPrincipal = new Font("Rockwell Extra Bold", Font.PLAIN, 20);
         fontTitulo = new Font("LuzSans-Book", Font.BOLD, 17);
         fontSubtitulo = new Font("Forte", Font.PLAIN, 13);
