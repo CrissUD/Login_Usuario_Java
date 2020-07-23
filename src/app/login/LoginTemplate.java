@@ -2,6 +2,7 @@ package app.login;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -13,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import app.services.GraficosAvanzadosService;
 import app.services.ObjGraficosService;
 import app.services.RecursosService;
 
@@ -22,10 +24,11 @@ public class LoginTemplate extends JFrame{
     // Declaración servicios
     private ObjGraficosService sObjGraficos;
     private RecursosService sRecursos;
+    private GraficosAvanzadosService sGraficosAvanzados;
     private LoginComponent loginComponent;
 
     // Declaración Objetos Gráficos
-    private JPanel pIzquierda, pDerecha, pSvg, pUsuario, pClave;
+    private JPanel pContenedor, pIzquierda, pDerecha, pSvg, pUsuario, pClave;
     private JLabel lFondo, lLogo, lUsuario, lClave, lSvg1, lSvg2, lSvg3, lFacebook, lTwitter, lYoutube;
     private JLabel lTituloApp, lTituloLogin, lEslogan, lNotificaciones;
     private JTextField tUsuario;
@@ -44,6 +47,7 @@ public class LoginTemplate extends JFrame{
         this.loginComponent = loginComponent;
         this.sObjGraficos = ObjGraficosService.getService();
         this.sRecursos = RecursosService.getService();
+        this.sGraficosAvanzados = GraficosAvanzadosService.getService();
 
         this.crearObjetosDecoradores();
         this.crearJPanels();
@@ -57,9 +61,12 @@ public class LoginTemplate extends JFrame{
         setUndecorated(true);
         setSize(1000, 500);
         setLocationRelativeTo(this);
+        // setShape(new RoundRectangle2D.Double(5, 5, getWidth() - 3, getHeight() - 3, 50, 50));
+        setContentPane(pContenedor);
         setLayout(null);
-        getContentPane().setBackground(Color.WHITE);
+        getContentPane().setBackground(Color.black);
         setVisible(true);
+        setAlwaysOnTop(true);
     }
 
     public void crearObjetosDecoradores(){
@@ -84,15 +91,18 @@ public class LoginTemplate extends JFrame{
 
     public void crearJPanels(){
 
+        pContenedor = sGraficosAvanzados.devolverContenedorRedondeado();
+        pContenedor.setOpaque(true);
+        
         pIzquierda = sObjGraficos.construirJPanel(
             0, 0, 600, 500, Color.WHITE, null
         );
-        this.add(pIzquierda);
+        pContenedor.add(pIzquierda);
 
         pDerecha = sObjGraficos.construirJPanel(
             600, 0, 400, 500, Color.WHITE, null
         );
-        this.add(pDerecha);
+        pContenedor.add(pDerecha);
 
         pSvg = sObjGraficos.construirJPanel(
             100, 100, 1700, 345, new Color(0, 0, 0, 0), null

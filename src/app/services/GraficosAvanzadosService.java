@@ -1,9 +1,9 @@
-package app.services;
+package app.services.servicesGraphics;
 
+import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -20,6 +20,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -27,6 +28,8 @@ import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
+
+/** @author Cristian Felipe Patiño Cáceres */
 
 public class GraficosAvanzadosService {
     
@@ -37,152 +40,141 @@ public class GraficosAvanzadosService {
     public DefaultTableCellRenderer devolverTablaPersonalizada(
         Color colorPrincipal, Color colorSecundario, Color colorSeleccion, Color colorFuente, Font fuente
     ){
-        class MiRender extends DefaultTableCellRenderer{
+        return new DefaultTableCellRenderer(){
             private static final long serialVersionUID = -8946942932242371111L;
 
             @Override
             public Component getTableCellRendererComponent(
-                JTable table, Object value, boolean isSelected, boolean hasFocus, int row,int column
+                JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column
             ){
-                JLabel cell = (JLabel) super.getTableCellRendererComponent (table, value, isSelected, hasFocus, row, column);
-                cell.getClass(); 
-                this.setOpaque(true);
-                this.setFont(fuente);
-                this.setHorizontalAlignment(SwingConstants.CENTER);
-                if (row % 2 != 0){
-                    this.setBackground(colorPrincipal);
-                    this.setForeground(colorFuente);
-                } 
-                else{
-                    this.setBackground(colorSecundario);
-                    this.setForeground(colorFuente);
+                JLabel celda = (JLabel) super.getTableCellRendererComponent (table, value, isSelected, hasFocus, row, column);
+                celda.setOpaque(true);
+                celda.setFont(fuente);
+                celda.setForeground(colorFuente);
+                celda.setHorizontalAlignment(SwingConstants.CENTER);
+                if (row % 2 != 0)
+                    celda.setBackground(colorPrincipal);
+                else
+                    celda.setBackground(colorSecundario);
+                if(isSelected){
+                    celda.setBackground(colorSeleccion);
+                    celda.setForeground(Color.WHITE);
                 }
-                if(isSelected==true){
-                    this.setBackground(colorSeleccion);
-                    this.setForeground(colorSecundario);
-                }
-                return this;
+                return celda;
             }
-        }
-        return new MiRender();
+        };
     }
 
-    public BasicScrollBarUI devolverScrollPersonalizado(Color colorBarraNormal, Color colorBarraArrastrada){
-        return new BasicScrollBarUI() {
-            private final Dimension d = new Dimension();
-        
+    public BasicScrollBarUI devolverScrollPersonalizado(
+        int grosor, int radio, Color colorFondo, Color colorBarraNormal, Color colorBarraArrastrada
+    ){
+        return new BasicScrollBarUI(){
+            private Dimension d = new Dimension();
+
             @Override
             protected JButton createDecreaseButton(int orientation) {
-                return new JButton() {
-                    private static final long serialVersionUID = -5412240959518806029L;
-                    @Override
-                    public Dimension getPreferredSize() {
-                        return d;
-                    }
-                };
+                JButton boton = new JButton();
+                boton.setPreferredSize(d);
+                return boton;
             }
         
             @Override
             protected JButton createIncreaseButton(int orientation) {
-                return new JButton() {
-                    private static final long serialVersionUID = 2093457850332785270L;
-                    @Override
-                    public Dimension getPreferredSize() {
-                        return d;
-                    }
-                };
+                JButton boton = new JButton();
+                boton.setPreferredSize(d);
+                return boton;
             }
         
             @Override
             protected void paintTrack(Graphics g, JComponent c, Rectangle r) {
+                g.setColor(colorFondo);
+                g.fillRect(r.x, r.y, r.width, r.height);
             }
         
             @Override
             protected void paintThumb(Graphics g, JComponent c, Rectangle r) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
                 JScrollBar sb = (JScrollBar) c;
-                if (!sb.isEnabled() || r.width > r.height) {
+                if (!sb.isEnabled())
                     return;
-                } else if (isDragging) {
+                else if (isDragging)
                     g2.setPaint(colorBarraArrastrada);
-                } else if (isThumbRollover()) {
+                else if (isThumbRollover())
                     g2.setPaint(colorBarraNormal);
-                } else {
+                else
                     g2.setPaint(colorBarraNormal);
-                }
-                g2.fillRoundRect(r.x + 4, r.y, 8, r.height, 10, 10);
-            }
-        
-            @Override
-            protected void setThumbBounds(int x, int y, int width, int height) {
-                super.setThumbBounds(x, y, width, height);
-                scrollbar.repaint();
+
+                if(r.width < r.height)
+                    g2.fillRoundRect((r.width - grosor) / 2, r.y, grosor, r.height, radio, radio);
+                else
+                    g2.fillRoundRect(r.x, (r.height - grosor) / 2, r.width, grosor, radio, radio);
             }
         };
     }
 
-    public Border devolverBordeDifuminado(Color colorBase){
+    public Border devolverBordeDifuminado(Color colorBase, int grosor){
         Border bordeFinal = null;
-        Color siguienteColor = new Color(colorBase.getRed()+4, colorBase.getGreen()+4, colorBase.getBlue()+4);
+        Border bordeInicial =  BorderFactory.createLineBorder(colorBase, 1, true);  
+        Color siguienteColor = new Color(colorBase.getRed() + 5, colorBase.getGreen() + 5, colorBase.getBlue() + 5);
         int contador = 0;
-        while(siguienteColor.getRed() < 255){
-            if(contador == 0){ 
-                Border borde1=  BorderFactory.createLineBorder(colorBase,1,true);  
-                Border borde2=  BorderFactory.createLineBorder(siguienteColor,1,true);
-                bordeFinal = BorderFactory.createCompoundBorder(borde2,borde1);
-            }
-            else{
-                siguienteColor = new Color(siguienteColor.getRed()+4, siguienteColor.getGreen()+4, siguienteColor.getBlue()+4);
-                Border borde=  BorderFactory.createLineBorder(siguienteColor,1,true);
-                bordeFinal = BorderFactory.createCompoundBorder(borde, bordeFinal);
-            }
+        while(
+            siguienteColor.getRed() < 251 && siguienteColor.getGreen() < 251 && 
+            siguienteColor.getBlue() < 251 && contador < grosor
+        ){
+            Border bordeExterno =  BorderFactory.createLineBorder(siguienteColor, 1, true);
+            if(contador == 0)
+                bordeFinal = BorderFactory.createCompoundBorder(bordeExterno, bordeInicial);
+            else
+                bordeFinal = BorderFactory.createCompoundBorder(bordeExterno, bordeFinal);
+            siguienteColor = new Color(
+                siguienteColor.getRed() + 5, siguienteColor.getGreen() + 5, siguienteColor.getBlue() + 5
+            );
             contador ++;
         }
         return bordeFinal;
     }
     
     public Border DibujarBordeRedondeado (Color color, int radio, boolean esLineal, Image imagen) {
-        Border bordeRedondeado = new Border() {
+        Border bordeRedondeado = new Border(){
 
             @Override
             public void paintBorder(Component c, Graphics g, int x, int y, int ancho, int alto) {
                 Graphics2D g2= (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
-                Area area = new Area();
+                Area area;
                 Component padreContenedor  = c.getParent();
                 RoundRectangle2D rectanguloBordeado = new RoundRectangle2D.Double();
-                rectanguloBordeado.setRoundRect(x, y, ancho-1, alto-1, radio, radio);
-                if (padreContenedor != null) {
-                    if(esLineal){
-                        diburjarFondo(c, padreContenedor, imagen, g2, ancho, alto);
-                        dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, rectanguloBordeado);
-                    }
-                    else{
-                        area = dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, rectanguloBordeado);
-                        diburjarFondo(c, padreContenedor, imagen, g2, ancho, alto);
-                        g2.setClip(null);
-                        g2.draw(area);
-                    }
+                rectanguloBordeado.setRoundRect(x, y, ancho - 1, alto - 1, radio, radio);
+                if(esLineal){
+                    dibujarFondo(c, padreContenedor, imagen, g2, ancho, alto);
+                    area = dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, rectanguloBordeado);
                 }
+                else{
+                    area = dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, rectanguloBordeado);
+                    dibujarFondo(c, padreContenedor, imagen, g2, ancho, alto);
+                }
+                g2.setClip(null);
+                g2.draw(area);
             }
+
             @Override
-            public Insets getBorderInsets(Component cmpnt) {
-                return new Insets(radio+1, radio+1, radio+2, radio);
+            public Insets getBorderInsets(Component c) {
+                return new Insets(2, 2, 2, 2);
             }
 
             @Override
             public boolean isBorderOpaque() {
-                return true;
+                return false;
             }
-        } ;
+        };
         return bordeRedondeado;
     }
     
     public AbstractBorder DibujarBordeCircular(Color color, boolean esLineal, Image imagen) {
         AbstractBorder bordeCircular = new AbstractBorder() {
-        
             private static final long serialVersionUID = 2009875951859777681L;
 
             @Override
@@ -190,31 +182,54 @@ public class GraficosAvanzadosService {
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
-                Area area = new Area();
+                Area area;
                 Component padreContenedor  = c.getParent();
                 Ellipse2D circulo = new Ellipse2D.Double();
                 circulo.setFrameFromCenter( 
                     new Point(x + ancho / 2, y + alto / 2),
                     new Point(ancho, alto)
                 );
-                if (padreContenedor != null) {
-                    if(esLineal){
-                        diburjarFondo(c, padreContenedor, imagen, g2, ancho, alto);
-                        dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, circulo);
-                    }
-                    else{
-                        area = dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, circulo);
-                        diburjarFondo(c, padreContenedor, imagen, g2, ancho, alto);
-                        g2.setClip(null);
-                        g2.draw(area);
-                    }
+                if(esLineal){
+                    dibujarFondo(c, padreContenedor, imagen, g2, ancho, alto);
+                    area = dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, circulo);
                 }
+                else{
+                    area = dibujarBorde(c, g2, color, x, y, ancho, alto, esLineal, circulo);
+                    dibujarFondo(c, padreContenedor, imagen, g2, ancho, alto);
+                }
+                g2.setClip(null);
+                g2.draw(area);
             }
         };
         return bordeCircular;
     }
 
-    public void diburjarFondo(Component c, Component padreContenedor, Image imagen, Graphics2D g2, int ancho, int alto){
+    public JPanel devolverContenedorRedondeado(){
+        return new JPanel(){
+
+            private static final long serialVersionUID = 1L;
+            
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(1000, 500);
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+                Graphics2D g2d = (Graphics2D) g.create();
+                RenderingHints hints = new RenderingHints(
+                    RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON
+                );
+                g2d.setRenderingHints(hints);
+                g2d.setColor(getBackground());
+                g2d.fill(new RoundRectangle2D.Double(10, 10, getWidth(), getHeight(), 50, 50));
+                g2d.dispose();
+            }
+        };
+    }
+
+    public void dibujarFondo(Component c, Component padreContenedor, Image imagen, Graphics2D g2, int ancho, int alto){
         if(imagen != null)
             g2.drawImage(
                 imagen, 
@@ -223,8 +238,7 @@ public class GraficosAvanzadosService {
                 c
             );
         else{
-            Color colorFondo = padreContenedor.getBackground();
-            g2.setColor(colorFondo);
+            g2.setColor(padreContenedor.getBackground());
             g2.fillRect(0, 0, ancho, alto);
         }
     }
@@ -238,12 +252,9 @@ public class GraficosAvanzadosService {
             g2.setPaint(color);
         Area area = new Area(figura);
         Rectangle rectangulo = new Rectangle(0,0,ancho, alto);
-        Area RegionBorde = new Area(rectangulo);
-        RegionBorde.subtract(area);
-        g2.setClip(RegionBorde);
-        if(esLineal)
-            g2.setClip(null);
-            g2.draw(area);
+        Area regionBorde = new Area(rectangulo);
+        regionBorde.subtract(area);
+        g2.setClip(regionBorde);
         return area;
     }
     
