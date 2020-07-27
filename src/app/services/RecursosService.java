@@ -3,6 +3,11 @@ package app.services;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.IOException;
+import java.awt.FontFormatException;
+
 import javax.swing.border.Border;
 import javax.swing.ImageIcon;
 
@@ -22,7 +27,7 @@ public class RecursosService {
 
     private RecursosService(){
         sGraficosAvanzados = GraficosAvanzadosService.getService();
-
+        this.generarFuente();
         colorMorado = new Color(151, 0, 158);
         colorAzul = new Color(60, 78, 120);
         colorAzulOscuro = new Color(30, 48, 90);
@@ -37,6 +42,16 @@ public class RecursosService {
         bRedondeadoLinealGris= sGraficosAvanzados.DibujarBordeRedondeado(colorGrisOscuro, 40, true, null);
         bRedondeadoLinealAzul= sGraficosAvanzados.DibujarBordeRedondeado(colorAzul, 40, true, null);
         iCerrar = new ImageIcon("resources/images/cerrar.png");
+    }
+
+    public void generarFuente(){
+        try {
+            GraphicsEnvironment ge = 
+                GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("resources/fonts/LUZRO.ttf")));
+        } catch (IOException|FontFormatException e) {
+                //Handle exception
+        }
     }
     
     public Color getColorMorado(){

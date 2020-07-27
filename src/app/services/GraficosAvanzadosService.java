@@ -1,4 +1,4 @@
-package app.services.servicesGraphics;
+package app.services;
 
 import java.awt.Dimension;
 import java.awt.Color;
@@ -20,7 +20,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -202,31 +201,6 @@ public class GraficosAvanzadosService {
             }
         };
         return bordeCircular;
-    }
-
-    public JPanel devolverContenedorRedondeado(){
-        return new JPanel(){
-
-            private static final long serialVersionUID = 1L;
-            
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(1000, 500);
-            }
-
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-                Graphics2D g2d = (Graphics2D) g.create();
-                RenderingHints hints = new RenderingHints(
-                    RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON
-                );
-                g2d.setRenderingHints(hints);
-                g2d.setColor(getBackground());
-                g2d.fill(new RoundRectangle2D.Double(10, 10, getWidth(), getHeight(), 50, 50));
-                g2d.dispose();
-            }
-        };
     }
 
     public void dibujarFondo(Component c, Component padreContenedor, Image imagen, Graphics2D g2, int ancho, int alto){
