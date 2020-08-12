@@ -11,6 +11,8 @@ import java.awt.FontFormatException;
 import javax.swing.border.Border;
 import javax.swing.ImageIcon;
 
+/** @author Cristian Felipe Patiño Cáceres Github: CrissUD*/
+
 public class RecursosService {
 
     // Declaración Servicios
