@@ -165,99 +165,102 @@ public class LoginTemplate extends JFrame{
     public void crearJLabels(){
         //LABEL LOGO-----------------------------------------------------------------------------
         iDimAux = new ImageIcon(iLogo.getImage().getScaledInstance(40, 40, Image.SCALE_AREA_AVERAGING));
-        lLogo= sObjGraficos.construirJLabel(null, 50, 20, 40, 40, iDimAux, null, null, null, "c");
+        lLogo= sObjGraficos.construirJLabel(null, 50, 20, 40, 40, null, iDimAux, null, null, null, null, "c");
         pIzquierda.add(lLogo);
 
         //LABEL TITULO APP-----------------------------------------------------------------------------
         lTituloApp = sObjGraficos.construirJLabel(
-            "Login de Usuario", 100, 20, 220, 30, null, Color.WHITE, null, sRecursos.getFontTPrincipal(), "c"
+            "Login de Usuario", 100, 20, 220, 30, null, null, sRecursos.getFontTPrincipal(), null, Color.WHITE, null, "c"
         );
         pIzquierda.add(lTituloApp);
 
         //LABEL SVG-----------------------------------------------------------------------------
         iDimAux = new ImageIcon(iSvg1.getImage().getScaledInstance(500, 345, Image.SCALE_AREA_AVERAGING));
-        lSvg1= sObjGraficos.construirJLabel(null, 0, 0, 500, 345, iDimAux, null, null, null, "c");
+        lSvg1= sObjGraficos.construirJLabel(null, 0, 0, 500, 345, null, iDimAux, null, null, null, null, "c");
         pSvg.add(lSvg1);
 
         //LABEL SVG 2-----------------------------------------------------------------------------
         iDimAux = new ImageIcon(iSvg2.getImage().getScaledInstance(500, 345, Image.SCALE_AREA_AVERAGING));
-        lSvg2= sObjGraficos.construirJLabel(null, 600, 0, 500, 345, iDimAux, null, null, null, "c");
+        lSvg2= sObjGraficos.construirJLabel(null, 600, 0, 500, 345, null, iDimAux, null, null, null, null, "c");
         pSvg.add(lSvg2);
 
         //LABEL SVG 3-----------------------------------------------------------------------------
         iDimAux = new ImageIcon(iSvg3.getImage().getScaledInstance(500, 345, Image.SCALE_AREA_AVERAGING));
-        lSvg3= sObjGraficos.construirJLabel(null, 1200, 0, 500, 345, iDimAux, null, null, null, "c");
+        lSvg3= sObjGraficos.construirJLabel(null, 1200, 0, 500, 345, null, iDimAux, null, null, null, null, "c");
         pSvg.add(lSvg3);
 
         //LABEL ESLOGAN-----------------------------------------------------------------------------
         lEslogan = sObjGraficos.construirJLabel(
-            "Te ayudamos en todo", pDerecha.getWidth()/2 - 85, 100, 130, 20, 
-            null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontSubtitulo(), "c"
+            "Te ayudamos en todo", pDerecha.getWidth()/2 - 85, 100, 130, 20, null, null, 
+            sRecursos.getFontSubtitulo(), null, sRecursos.getColorGrisOscuro(), null, "c"
         );
         pDerecha.add(lEslogan);
 
         //LABEL TITULO LOGIN-----------------------------------------------------------------------------
         lTituloLogin = sObjGraficos.construirJLabel(
-            "Registra tus Datos", pDerecha.getWidth()/2 - 100, 120, 150, 30, 
-            null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontTitulo(), "c"
+            "Registra tus Datos", pDerecha.getWidth()/2 - 100, 120, 150, 30, null, null,
+            sRecursos.getFontTitulo(), null, sRecursos.getColorGrisOscuro(), null, "c"
         );
         pDerecha.add(lTituloLogin);
 
         //LABEL NOTIFICACIONES-----------------------------------------------------------------------------
         lNotificaciones = sObjGraficos.construirJLabel(
-            "¿Recibir Notificaciones?", (pDerecha.getWidth() - 180) / 2, 380, 140, 20, 
-            null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontSubtitulo(), "c"
+            "¿Recibir Notificaciones?", (pDerecha.getWidth() - 180) / 2, 380, 140, 20, null, null,
+            sRecursos.getFontSubtitulo(), null, sRecursos.getColorGrisOscuro(), null, "c"
         );
         pDerecha.add(lNotificaciones);
 
         //LABEL USUARIO-----------------------------------------------------------------------------
         iDimAux = new ImageIcon(iUsuario1.getImage().getScaledInstance(20, 20, Image.SCALE_AREA_AVERAGING));
-        lUsuario= sObjGraficos.construirJLabel(null, 260, 10, 20, 20, iDimAux, null, null, null, "c");
+        lUsuario= sObjGraficos.construirJLabel(null, 260, 10, 20, 20, null, iDimAux, null, null, null, null, "c");
         pUsuario.add(lUsuario);
 
         //LABEL CLAVE-----------------------------------------------------------------------------
         iDimAux = new ImageIcon(iClave1.getImage().getScaledInstance(20, 20, Image.SCALE_AREA_AVERAGING));
-        lClave= sObjGraficos.construirJLabel(null, 260, 10, 20, 20, iDimAux, null, null, null, "c");
+        lClave= sObjGraficos.construirJLabel(null, 260, 10, 20, 20, null, iDimAux, null, null, null, null, "c");
         pClave.add(lClave);
 
         //LABEL FACEBOOK-----------------------------------------------------------------------------
         iDimAux = new ImageIcon(iFacebook1.getImage().getScaledInstance(30, 30, Image.SCALE_AREA_AVERAGING));
-        lFacebook= sObjGraficos.construirJLabel(null, 20, 460, 30, 30, iDimAux, null, null, null, "c");
-        lFacebook.setCursor(sRecursos.getCMano());
+        lFacebook= sObjGraficos.construirJLabel(
+            null, 20, 460, 30, 30, sRecursos.getCMano(), iDimAux, null, null, null, null, "c"
+        );
         lFacebook.addMouseListener(loginComponent);
         pIzquierda.add(lFacebook);
 
         //LABEL TWITTER-----------------------------------------------------------------------------
         iDimAux = new ImageIcon(iTwitter1.getImage().getScaledInstance(30, 30, Image.SCALE_AREA_AVERAGING));
-        lTwitter= sObjGraficos.construirJLabel(null, 60, 460, 30, 30, iDimAux, null, null, null, "c");
-        lTwitter.setCursor(sRecursos.getCMano());
+        lTwitter= sObjGraficos.construirJLabel(
+            null, 60, 460, 30, 30, sRecursos.getCMano(), iDimAux, null, null, null, null, "c"
+        );
         lTwitter.addMouseListener(loginComponent);
         pIzquierda.add(lTwitter);
 
         //LABEL YOUTUBE-----------------------------------------------------------------------------
         iDimAux = new ImageIcon(iYoutube1.getImage().getScaledInstance(30, 30, Image.SCALE_AREA_AVERAGING));
-        lYoutube= sObjGraficos.construirJLabel(null, 100, 460, 30, 30, iDimAux, null, null, null, "c");
-        lYoutube.setCursor(sRecursos.getCMano());
+        lYoutube= sObjGraficos.construirJLabel(
+            null, 100, 460, 30, 30, sRecursos.getCMano(), iDimAux, null, null, null, null, "c"
+        );
         lYoutube.addMouseListener(loginComponent);
         pIzquierda.add(lYoutube);
 
         //LABEL FONDO-----------------------------------------------------------------------------
         iDimAux = new ImageIcon(iFondo.getImage().getScaledInstance(600, 600, Image.SCALE_AREA_AVERAGING));
-        lFondo= sObjGraficos.construirJLabel(null, 0, 0, 600, 600, iDimAux, null, null, null, "c");
+        lFondo= sObjGraficos.construirJLabel(null, 0, 0, 600, 600, null, iDimAux, null, null, null, null, "c");
         pIzquierda.add(lFondo);
     }
 
     public void crearFields(){
         tUsuario= sObjGraficos.construirJTextField(
-            "Nombre Usuario", 15, 5, 240, 30, Color.WHITE, sRecursos.getColorGrisOscuro(), 
-            sRecursos.getColorGrisOscuro(), null, null, "l"
+            "Nombre Usuario", 15, 5, 240, 30, null, Color.WHITE, 
+            sRecursos.getColorGrisOscuro(), sRecursos.getColorGrisOscuro(), null, "l"
         );
         tUsuario.addFocusListener(loginComponent);
         pUsuario.add(tUsuario);
 
         tClave= sObjGraficos.construirJPasswordField(
-            "Clave Usuario", 15, 5, 240, 30, Color.WHITE, sRecursos.getColorGrisOscuro(), 
-            sRecursos.getColorGrisOscuro(), null, null, "l"
+            "Clave Usuario", 15, 5, 240, 30, null, Color.WHITE, 
+            sRecursos.getColorGrisOscuro(), sRecursos.getColorGrisOscuro(),  null, "l"
         );
         tClave.addFocusListener(loginComponent);
         pClave.add(tClave);
